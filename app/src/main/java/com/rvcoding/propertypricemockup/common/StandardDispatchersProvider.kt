@@ -1,0 +1,3 @@
+package com.rvcoding.propertypricemockup.common
+
+object StandardDispatchersProvider : DispatchersProvider
