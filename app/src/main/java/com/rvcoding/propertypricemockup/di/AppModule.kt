@@ -2,42 +2,35 @@ package com.rvcoding.propertypricemockup.di
 
 import com.rvcoding.propertypricemockup.common.DispatchersProvider
 import com.rvcoding.propertypricemockup.common.StandardDispatchersProvider
-import com.rvcoding.propertypricemockup.ui.yourproperties.YourPropertiesViewModel
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
-import org.koin.core.module.dsl.viewModel
-import org.koin.dsl.module
+import javax.inject.Singleton
 
-val appModule = module {
-    /**
-     * Setup
-     * */
-    single<DispatchersProvider> { StandardDispatchersProvider }
-    val coExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        println("CoroutineException: ${throwable.printStackTrace()}")
-    }
-    single<CoroutineExceptionHandler> { coExceptionHandler }
-    single<CoroutineScope> { CoroutineScope(StandardDispatchersProvider.io + coExceptionHandler) }
 
-    /**
-     * Navigation
-     * */
-//    single<Navigator> {
-//        DefaultNavigator(startDestination = Destination.YourAlarms)
-//    }
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+    @Provides
+    @Singleton
+    fun provideDispatchers(): DispatchersProvider = StandardDispatchersProvider
 
-    /**
-     * Databases
-     * */
-//    single { AlarmsDatabase.createDb(androidContext()).dao }
+    @Provides
+    @Singleton
+    fun provideCoroutineExceptionHandler(): CoroutineExceptionHandler =
+        CoroutineExceptionHandler { _, throwable ->
+            println("CoroutineException: ${throwable.printStackTrace()}")
+        }
 
-    /**
-     * Repositories
-     * */
-//    single<AlarmRepository> { AlarmRepositoryImpl(get()) }
+    @Provides
+    @Singleton
+    fun provideCoroutineScope(
+        dispatchersProvider: DispatchersProvider,
+        coroutineExceptionHandler: CoroutineExceptionHandler
+    ) =
+        CoroutineScope(dispatchersProvider.io + coroutineExceptionHandler)
 
-    /**
-     * ViewModels
-     * */
-    viewModel { YourPropertiesViewModel() }
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -37,12 +38,11 @@ import com.rvcoding.propertypricemockup.domain.navigation.Actions
 import com.rvcoding.propertypricemockup.ui.component.TopBar
 import com.rvcoding.propertypricemockup.ui.theme.BackgroundContainer
 import com.rvcoding.propertypricemockup.ui.theme.Tertiary
-import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun YourPropertiesScreenRoot(
-    vm: YourPropertiesViewModel = koinViewModel(),
+    vm: YourPropertiesViewModel = hiltViewModel(),
 ) {
     val state by vm.properties.collectAsStateWithLifecycle()
 

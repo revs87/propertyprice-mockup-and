@@ -18,8 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.rvcoding.propertypricemockup.ui.theme.PropertyPriceMockupTheme
 import com.rvcoding.propertypricemockup.ui.yourproperties.YourPropertiesScreenRoot
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val vm: MainViewModel by viewModels()

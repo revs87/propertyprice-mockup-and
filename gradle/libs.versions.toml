@@ -1,6 +1,6 @@
 [versions]
-agp = "8.7.2"
-kotlin = "2.0.21"
+agp = "8.7.3"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 coreSplash = "1.0.1"
 junit = "4.13.2"
@@ -8,11 +8,12 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 androidxLifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.11.00"
-koinBom = "4.0.0"
+composeBom = "2024.12.01"
+hilt = "2.51.1"
+hilt-androidx = "1.2.0"
 kotlinx-serialization = "1.7.1"
-room = "2.7.0-alpha11"
-ksp = "2.0.21-1.0.25"
+room = "2.7.0-alpha12"
+ksp = "2.1.0-1.0.29"
 kotlinx-datetime = "0.6.1"
 coroutines = "1.8.1"
 datastore = "1.1.1"
@@ -49,17 +50,13 @@ androidx-datastore = { group = "androidx.datastore", name = "datastore", version
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-androidx-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-androidx" }
 coil-kt = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-koin-core = { module = "io.insert-koin:koin-core" }
-koin-android = { module = "io.insert-koin:koin-android" }
-#koin-compose = { module = "io.insert-koin:koin-compose" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
-koin-androidx-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation" }
-koin-test = { module = "io.insert-koin:koin-test-junit4" }
-koin-androidTest = { module = "io.insert-koin:koin-android-test" }
-
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
@@ -68,6 +65,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 

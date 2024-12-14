@@ -1,20 +1,7 @@
 package com.rvcoding.propertypricemockup
 
 import android.app.Application
-import com.rvcoding.propertypricemockup.di.appModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 
-class MainApplication : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-        startKoin {
-            androidLogger()
-            androidContext(this@MainApplication)
-            modules(appModule)
-        }
-    }
-}
+@HiltAndroidApp
+class MainApplication : Application()

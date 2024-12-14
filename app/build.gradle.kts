@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.room)
+    alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
 }
 
@@ -64,17 +65,21 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.datastore.preferences)
+
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.androidx.navigation.compose)
+    kspTest(libs.hilt.android.compiler)
+    testImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+
     ksp(libs.room.compiler)
     implementation(libs.room.runtime)
-    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.room.ktx) // Kotlin Extensions and Coroutines support for Room
+
     implementation(libs.coil.kt)
     implementation(libs.coil.compose)
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.compose.navigation)
-    implementation(libs.koin.test)
-    implementation(libs.koin.androidTest)
     testImplementation(libs.junit)
     testImplementation(libs.assertk)
     testImplementation(libs.turbine)
