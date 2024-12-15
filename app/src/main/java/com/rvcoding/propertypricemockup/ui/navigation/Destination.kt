@@ -1,4 +1,4 @@
-package com.rvcoding.propertypricemockup.domain.navigation
+package com.rvcoding.propertypricemockup.ui.navigation
 
 import kotlinx.serialization.Serializable
 

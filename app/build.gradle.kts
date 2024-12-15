@@ -74,6 +74,12 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
     androidTestImplementation(libs.hilt.android.testing)
 
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
     ksp(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx) // Kotlin Extensions and Coroutines support for Room
