@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.rvcoding.propertypricemockup.ui.navigation.NavigationRoot
 import com.rvcoding.propertypricemockup.ui.theme.PropertyPriceMockupTheme
-import com.rvcoding.propertypricemockup.ui.screen.yourproperties.YourPropertiesScreenRoot
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        YourPropertiesScreenRoot()
+                        NavigationRoot()
                     }
                 }
             }

@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.rvcoding.propertypricemockup.common.DispatchersProvider
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
-import com.rvcoding.propertypricemockup.ui.navigation.Actions
+import com.rvcoding.propertypricemockup.domain.navigation.Actions
+import com.rvcoding.propertypricemockup.domain.navigation.Destination
+import com.rvcoding.propertypricemockup.ui.navigation.core.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class YourPropertiesViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
-    private val dispatchersProvider: DispatchersProvider
+    private val dispatchersProvider: DispatchersProvider,
+    private val navigator: Navigator,
 ) : ViewModel() {
 
     /**
@@ -104,6 +107,8 @@ class YourPropertiesViewModel @Inject constructor(
     }
 
     private fun goToPropertyDetails(id: Long) {
-        println(id)
+        viewModelScope.launch {
+            navigator.navigate(Destination.PropertyDetails(id))
+        }
     }
 }

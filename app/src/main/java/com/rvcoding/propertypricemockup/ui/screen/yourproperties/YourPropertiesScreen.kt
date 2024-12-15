@@ -50,7 +50,7 @@ import com.rvcoding.propertypricemockup.R
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.ratingFormatted
 import com.rvcoding.propertypricemockup.ui.component.TopBar
-import com.rvcoding.propertypricemockup.ui.navigation.Actions
+import com.rvcoding.propertypricemockup.domain.navigation.Actions
 import com.rvcoding.propertypricemockup.ui.theme.Background
 import com.rvcoding.propertypricemockup.ui.theme.BackgroundContainer
 import com.rvcoding.propertypricemockup.ui.theme.Primary
