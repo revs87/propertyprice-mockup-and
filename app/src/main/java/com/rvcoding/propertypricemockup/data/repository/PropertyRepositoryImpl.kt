@@ -18,6 +18,14 @@ internal class PropertyRepositoryImpl @Inject constructor(
             propertyDao.insertProperty(property.toDomain())
         }
     }
+
+    override suspend fun refreshDetails(id: Long): Property? {
+        propertyApi.fetchProperties().properties.find { it.id == id }?.let { property ->
+            propertyDao.insertProperty(property.toDomain())
+            return property.toDomain()
+        }
+        return null
+    }
 }
 
 typealias PropertyFromApi = com.rvcoding.propertypricemockup.data.remote.Property

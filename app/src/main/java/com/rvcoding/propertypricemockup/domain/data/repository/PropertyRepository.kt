@@ -11,4 +11,6 @@ interface PropertyRepository {
      * */
     fun listing(): Flow<List<Property>>
     suspend fun refresh()
+
+    suspend fun refreshDetails(id: Long): Property?
 }
