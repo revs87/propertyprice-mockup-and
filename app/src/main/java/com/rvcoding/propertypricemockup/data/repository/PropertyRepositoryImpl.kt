@@ -1,6 +1,7 @@
 package com.rvcoding.propertypricemockup.data.repository
 
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
+import com.rvcoding.propertypricemockup.data.remote.PropertiesResponse
 import com.rvcoding.propertypricemockup.data.remote.RatesResponse
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.data.remote.api.PropertyApi
@@ -15,15 +16,17 @@ internal class PropertyRepositoryImpl @Inject constructor(
 ) : PropertyRepository {
     override fun listing(): Flow<List<Property>> = propertyDao.getProperties()
     override suspend fun refresh() {
-        propertyApi.fetchProperties().properties.forEach { property ->
-            propertyDao.insertProperty(property.toDomain())
+        val response: PropertiesResponse = propertyApi.fetchProperties()
+        response.properties.forEach { property ->
+            propertyDao.insertProperty(property.toDomain(response.location()))
         }
     }
 
     override suspend fun refreshDetails(id: Long): Property? {
-        propertyApi.fetchProperties().properties.find { it.id == id }?.let { property ->
-            propertyDao.insertProperty(property.toDomain())
-            return property.toDomain()
+        val response: PropertiesResponse = propertyApi.fetchProperties()
+        response.properties.find { it.id == id }?.let { property ->
+            propertyDao.insertProperty(property.toDomain(response.location()))
+            return property.toDomain(response.location())
         }
         return null
     }
@@ -31,11 +34,15 @@ internal class PropertyRepositoryImpl @Inject constructor(
     override suspend fun rates(): RatesResponse = propertyApi.fetchRates()
 }
 
-typealias PropertyFromApi = com.rvcoding.propertypricemockup.data.remote.Property
+private fun PropertiesResponse.location() = "${locationEn.city.name}, ${locationEn.city.country}"
 
-private fun PropertyFromApi.toDomain(): Property = Property(
+typealias PropertyFromApi = com.rvcoding.propertypricemockup.data.remote.Property
+private fun PropertyFromApi.toDomain(location: String): Property = Property(
     id = id,
     name = name,
+    location = location,
+    overview = overview,
+    imgUrl = imagesGallery.firstOrNull()?.let { "https://${it.prefix}${it.suffix}" } ?: "",
     isFeatured = isFeatured,
     rating = overallRating.overall.toDouble(),
     lowestPricePerNight = lowestPricePerNight.value.toDouble(),

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,13 +46,25 @@ fun PropertyCard(
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
-            Text(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                text = property.name,
-                color = TextPrimary,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold
-            )
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = property.name,
+                    color = TextPrimary,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = property.location,
+                    color = TextPrimary,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.BottomStart

@@ -15,6 +15,9 @@ import java.text.DecimalFormat
 data class Property(
     @PrimaryKey(autoGenerate = false) val id: Long,
     val name: String,
+    val location: String,
+    val overview: String,
+    val imgUrl: String,
     val isFeatured: Boolean,
     val rating: Double,
     val lowestPricePerNight: Double,
@@ -24,6 +27,9 @@ data class Property(
         val INITIAL = Property(
             id = -1,
             name = "Initial",
+            location = "Porto",
+            overview = "A Hostel in Porto",
+            imgUrl = "https://res.cloudinary.com/test-hostelworld-com/image/upload/f_auto,q_auto//v1/propertyimages/1/100/36.jpg",
             isFeatured = false,
             rating = 0.0,
             lowestPricePerNight = 1.0,

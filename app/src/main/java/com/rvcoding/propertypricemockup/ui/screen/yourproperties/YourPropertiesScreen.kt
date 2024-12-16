@@ -261,6 +261,9 @@ fun YourPropertiesScreenNonEmptyPreview() {
         properties = listOf(Property(
             id = 0,
             name = "Property 1",
+            location = "Porto",
+            overview = "A Hostel in Porto",
+            imgUrl = "",
             isFeatured = false,
             rating = 4.5,
             lowestPricePerNight = 100.0,
