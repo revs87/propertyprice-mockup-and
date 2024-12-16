@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,11 +37,13 @@ fun PropertyDetailsScreenRoot(
 ) {
     LaunchedEffect(id) { vm.setPropertyId(id) }
     val property by vm.property.collectAsStateWithLifecycle()
+    val extraCurrencies by vm.extraCurrencies.collectAsStateWithLifecycle()
     val isLoading by vm.isLoading.collectAsStateWithLifecycle()
 
     PropertyDetailsScreen(
         property = property,
         isLoading = isLoading,
+        extraCurrencies = extraCurrencies,
         onAction = vm::onAction
     )
 }
@@ -51,6 +52,7 @@ fun PropertyDetailsScreenRoot(
 fun PropertyDetailsScreen(
     property: Property,
     isLoading: Boolean,
+    extraCurrencies: Map<String, String>,
     onAction: (Actions.PropertyDetails) -> Unit
 ) {
     Box(
@@ -84,27 +86,17 @@ fun PropertyDetailsScreen(
                         color = Secondary,
                         fontSize = 14.sp
                     )
-                    Text(
-                        text = "EUR: ${property.lowestPricePerNight}",
-                        color = Secondary,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    extraCurrencies.keys.forEach { currency ->
+                        Text(
+                            text = "$currency: ${extraCurrencies[currency]}",
+                            color = Secondary,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun LoadingState() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackgroundContainer),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
     }
 }
 
@@ -115,6 +107,7 @@ fun PropertyDetailsScreenPreview() {
     PropertyDetailsScreen(
         property = Property.INITIAL,
         isLoading = false,
+        extraCurrencies = mapOf("GBP" to "1.2"),
         onAction = {}
     )
 }

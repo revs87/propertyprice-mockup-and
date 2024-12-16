@@ -1,6 +1,7 @@
 package com.rvcoding.propertypricemockup.data.repository
 
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
+import com.rvcoding.propertypricemockup.data.remote.RatesResponse
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.data.remote.api.PropertyApi
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
@@ -26,6 +27,8 @@ internal class PropertyRepositoryImpl @Inject constructor(
         }
         return null
     }
+
+    override suspend fun rates(): RatesResponse = propertyApi.fetchRates()
 }
 
 typealias PropertyFromApi = com.rvcoding.propertypricemockup.data.remote.Property

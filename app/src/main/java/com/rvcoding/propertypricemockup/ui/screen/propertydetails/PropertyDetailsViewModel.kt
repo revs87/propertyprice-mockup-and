@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,11 +35,10 @@ class PropertyDetailsViewModel @Inject constructor(
     private val navigator: Navigator
 ) : ViewModel() {
 
-    val isLoading = MutableStateFlow(false)
-
     private val propertyId = MutableStateFlow(-1L)
     fun setPropertyId(id: Long) = propertyId.update { id }
 
+    val isLoading = MutableStateFlow(false)
     val property: StateFlow<Property> = combine(
         tickFor5Seconds(),
         snapshotFlow { propertyId.value }
@@ -59,6 +60,26 @@ class PropertyDetailsViewModel @Inject constructor(
             delay(5_000L)
         }
     }
+    @SuppressLint("DefaultLocale")
+    val extraCurrencies = property
+        .combine(tickFor5Seconds()) { property, _ ->
+            Pair(property.lowestPricePerNight, property.lowestPricePerNightCurrency)
+        }
+        .map {
+            val (price, currency) = it
+            val rates = propertyRepository.rates()
+            rates.also(::println)
+            mapOf(
+                "EUR" to String.format("%.2f", price),
+                "USD" to String.format("%.2f", price.times(rates.rates.USD)),
+                "GBP" to String.format("%.2f", price.times(rates.rates.GBP))
+            )
+        }
+        .stateIn(
+            scope = viewModelScope + dispatchersProvider.io,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = mapOf()
+        )
 
     /**
      * RXJava3 POC

@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.domain.data.repository
 
+import com.rvcoding.propertypricemockup.data.remote.RatesResponse
 import com.rvcoding.propertypricemockup.domain.Property
 import kotlinx.coroutines.flow.Flow
 
@@ -13,4 +14,5 @@ interface PropertyRepository {
     suspend fun refresh()
 
     suspend fun refreshDetails(id: Long): Property?
+    suspend fun rates(): RatesResponse
 }
