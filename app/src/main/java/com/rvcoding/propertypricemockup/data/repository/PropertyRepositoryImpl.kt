@@ -1,7 +1,9 @@
 package com.rvcoding.propertypricemockup.data.repository
 
 import com.rvcoding.propertypricemockup.core.domain.util.DataError
-import com.rvcoding.propertypricemockup.core.domain.util.Result
+import com.rvcoding.propertypricemockup.core.domain.util.Result.Error
+import com.rvcoding.propertypricemockup.core.domain.util.Result.Success
+import com.rvcoding.propertypricemockup.core.domain.util.dbCall
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
 import com.rvcoding.propertypricemockup.data.remote.PropertiesResponse
 import com.rvcoding.propertypricemockup.data.remote.RatesResponse
@@ -22,10 +24,17 @@ internal class PropertyRepositoryImpl @Inject constructor(
     override fun listing(): Flow<List<Property>> = propertyDao.getProperties()
     override suspend fun refresh() {
         when (val response = propertyDataSource.fetchProperties()) {
-            is Result.Error -> errors.send(response.error)
-            is Result.Success -> {
+            is Error -> errors.send(response.error)
+            is Success -> {
                 response.data.properties.forEach { property ->
-                    propertyDao.insertProperty(property.toDomain(response.data.location()))
+                    dbCall {
+                        propertyDao.insertProperty(property.toDomain(response.data.location()))
+                    }.also { result ->
+                        when (result) {
+                            is Error -> errors.send(result.error)
+                            is Success -> {}
+                        }
+                    }
                 }
             }
         }
@@ -33,10 +42,17 @@ internal class PropertyRepositoryImpl @Inject constructor(
 
     override suspend fun refreshDetails(id: Long): Property? {
         when (val response = propertyDataSource.fetchProperties()) {
-            is Result.Error -> errors.send(response.error)
-            is Result.Success -> {
+            is Error -> errors.send(response.error)
+            is Success -> {
                 response.data.properties.find { it.id == id }?.let { property ->
-                    propertyDao.insertProperty(property.toDomain(response.data.location()))
+                    dbCall {
+                        propertyDao.insertProperty(property.toDomain(response.data.location()))
+                    }.also { result ->
+                        when (result) {
+                            is Error -> errors.send(result.error)
+                            is Success -> {}
+                        }
+                    }
                     return property.toDomain(response.data.location())
                 }
             }
@@ -46,8 +62,8 @@ internal class PropertyRepositoryImpl @Inject constructor(
 
     override suspend fun rates(): RatesResponse {
         when (val response = propertyDataSource.fetchRates()) {
-            is Result.Error -> errors.send(response.error)
-            is Result.Success -> return response.data
+            is Error -> errors.send(response.error)
+            is Success -> return response.data
         }
         return RatesResponse.FAILURE
     }

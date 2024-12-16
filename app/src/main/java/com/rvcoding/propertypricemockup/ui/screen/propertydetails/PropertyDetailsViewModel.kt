@@ -84,22 +84,22 @@ class PropertyDetailsViewModel @Inject constructor(
     /**
      * RXJava3 POC
      * */
-    val propertyRX: Observable<Property> = Observable.combineLatest(
-        Observable.interval(5, TimeUnit.SECONDS),
-        Observable.just(propertyId.value)
-    ) { _, propertyId: Long ->
-        runBlocking { propertyRepository.refreshDetails(propertyId) } ?: Property.INITIAL
-    }
-        .filter { it.name != Property.INITIAL.name }
-    val propertyRXStream = propertyRX
-        .subscribeOn(Schedulers.io())
-        .subscribe { property ->
-            property.also(::println)
-        }
-    override fun onCleared() {
-        propertyRXStream.dispose()
-        super.onCleared()
-    }
+//    val propertyRX: Observable<Property> = Observable.combineLatest(
+//        Observable.interval(5, TimeUnit.SECONDS),
+//        Observable.just(propertyId.value)
+//    ) { _, propertyId: Long ->
+//        runBlocking { propertyRepository.refreshDetails(propertyId) } ?: Property.INITIAL
+//    }
+//        .filter { it.name != Property.INITIAL.name }
+//    val propertyRXStream = propertyRX
+//        .subscribeOn(Schedulers.io())
+//        .subscribe { property ->
+//            property.also(::println)
+//        }
+//    override fun onCleared() {
+//        propertyRXStream.dispose()
+//        super.onCleared()
+//    }
 
 
     fun onAction(action: Actions.PropertyDetails) {

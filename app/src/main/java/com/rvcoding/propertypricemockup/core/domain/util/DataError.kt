@@ -8,6 +8,7 @@ sealed interface DataError: AppError {
     }
 
     enum class Local: DataError {
-        DISK_FULL
+        DISK_FULL,
+        UNKNOWN
     }
 }
