@@ -24,17 +24,26 @@ class DefaultNavigator(
     private val _navigationActions = Channel<NavigationAction>()
     override val navigationActions = _navigationActions.receiveAsFlow()
 
+    /**
+     * Prevents navigating to the same destination multiple times.
+     * */
+    private var lastDestination: Destination? = null
+
     override suspend fun navigate(
         destination: Destination,
         navOptions: NavOptionsBuilder.() -> Unit
     ) {
-        _navigationActions.send(NavigationAction.Navigate(
-            destination = destination,
-            navOptions = navOptions
-        ))
+        if (destination != lastDestination) {
+            _navigationActions.send(NavigationAction.Navigate(
+                destination = destination,
+                navOptions = navOptions
+            ))
+            lastDestination = destination
+        }
     }
 
     override suspend fun navigateUp() {
+        lastDestination = null
         _navigationActions.send(NavigationAction.NavigateUp)
     }
 }
