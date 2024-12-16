@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +44,10 @@ fun PropertyDetailsScreenRoot(
     val property by vm.property.collectAsStateWithLifecycle()
     val extraCurrencies by vm.extraCurrencies.collectAsStateWithLifecycle()
     val isLoading by vm.isLoading.collectAsStateWithLifecycle()
+
+    BackHandler {
+        vm.onAction(Actions.PropertyDetails.NavigateBack)
+    }
 
     PropertyDetailsScreen(
         property = property,
