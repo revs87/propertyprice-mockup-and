@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.room)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.junit5)
     alias(libs.plugins.ksp)
 }
 
@@ -19,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.rvcoding.propertypricemockup.HiltTestRunner"
     }
 
     buildTypes {
@@ -54,6 +55,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -64,7 +67,6 @@ dependencies {
     implementation(libs.rxkotlin)
     implementation(libs.kotlin.serialization)
     implementation(libs.kotlin.coroutines)
-    testImplementation(libs.kotlin.coroutines.test)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.datastore)
@@ -73,10 +75,6 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.androidx.navigation.compose)
-    kspTest(libs.hilt.android.compiler)
-    testImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.android.compiler)
-    androidTestImplementation(libs.hilt.android.testing)
 
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
@@ -90,17 +88,33 @@ dependencies {
 
     implementation(libs.coil.kt)
     implementation(libs.coil.compose)
+
+    // Unit testing
+    kspTest(libs.hilt.android.compiler)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.junit)
+    testImplementation(libs.junit5.api)
+    testRuntimeOnly(libs.junit5.engine)
+    testRuntimeOnly(libs.junit5.vintage.engine)
+    testImplementation(libs.junit5.params)
     testImplementation(libs.assertk)
     testImplementation(libs.turbine)
+
+    // Instrumented testing
+    kspAndroidTest(libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    androidTestImplementation(libs.androidx.ui.test.android)
+
 }
 
 room {
     schemaDirectory("$projectDir/schemas")
+}
+junitPlatform {
+    instrumentationTests.includeExtensions.set(true)
 }

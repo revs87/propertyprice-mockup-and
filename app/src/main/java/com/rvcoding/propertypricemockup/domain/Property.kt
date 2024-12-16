@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.domain
 
+import androidx.annotation.VisibleForTesting
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.math.RoundingMode
@@ -38,15 +39,9 @@ data class Property(
     }
 }
 
-/**
- * Examples:
- * 1.01234 -> "1.0"
- * 1.05000 -> "1.1"
- * 1.07500 -> "1.1"
- * 1.09999 -> "1.1"
- * */
+@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun Property.ratingFormatted(): String {
-    val df = DecimalFormat("#.0")
+    val df = DecimalFormat("0.0")
     df.roundingMode = RoundingMode.HALF_UP
-    return df.format(this.rating / 10)
+    return df.format(this.rating.coerceAtLeast(0.0) / 10)
 }

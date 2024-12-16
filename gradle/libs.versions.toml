@@ -4,6 +4,8 @@ kotlin = "2.1.0"
 coreKtx = "1.15.0"
 coreSplash = "1.0.1"
 junit = "4.13.2"
+junit5 = "5.11.1"
+junit5Plugin = "1.11.2.0"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 androidxLifecycleRuntimeKtx = "2.8.7"
@@ -48,6 +50,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-ui-test-android = { group = "androidx.compose.ui" , name = "ui-test-android" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
@@ -76,6 +79,11 @@ coil-kt = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit5-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5" }
+junit5-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -85,4 +93,5 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5Plugin" }
 
