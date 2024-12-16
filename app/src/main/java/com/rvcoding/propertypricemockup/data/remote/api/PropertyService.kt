@@ -7,8 +7,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class PropertyService : PropertyApi {
+class PropertyService @Inject constructor(
+    private val statsInterceptor: StatsInterceptor
+) : PropertyApi {
     private val service: PropertyApi
 
     init {
@@ -16,6 +19,7 @@ class PropertyService : PropertyApi {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor(statsInterceptor)
             .build()
 
         val retrofit = Retrofit.Builder()

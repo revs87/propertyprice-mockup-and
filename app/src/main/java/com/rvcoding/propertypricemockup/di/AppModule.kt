@@ -6,6 +6,7 @@ import com.rvcoding.propertypricemockup.common.StandardDispatchersProvider
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
 import com.rvcoding.propertypricemockup.data.db.PropertyDatabase
 import com.rvcoding.propertypricemockup.data.remote.api.PropertyService
+import com.rvcoding.propertypricemockup.data.remote.api.StatsInterceptor
 import com.rvcoding.propertypricemockup.data.repository.PropertyRepositoryImpl
 import com.rvcoding.propertypricemockup.domain.data.remote.api.PropertyApi
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
@@ -60,7 +61,7 @@ object AppModule {
      * */
     @Provides
     @Singleton
-    fun providesPropertyApi(): PropertyApi = PropertyService()
+    fun providesPropertyApi(): PropertyApi = PropertyService(provideStatsInterceptor())
 
     /**
      * Repository to handle db and network data
@@ -72,4 +73,7 @@ object AppModule {
         propertyApi: PropertyApi
     ): PropertyRepository = PropertyRepositoryImpl(propertyDao, propertyApi)
 
+    @Provides
+    @Singleton
+    fun provideStatsInterceptor(): StatsInterceptor = StatsInterceptor(provideDispatchers(), provideCoroutineScope(provideDispatchers(), provideCoroutineExceptionHandler()))
 }
