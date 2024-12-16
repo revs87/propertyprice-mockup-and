@@ -3,4 +3,5 @@
     <string name="your_properties_title">Properties</string>
     <string name="your_properties_empty_list">Sorry, but you have to wait as there are no properties at your disposal yet.</string>
     <string name="your_properties_error">There was a problem with retrieving properties. Please try again later.</string>
+    <string name="your_property_details_title">Property Details</string>
 </resources>

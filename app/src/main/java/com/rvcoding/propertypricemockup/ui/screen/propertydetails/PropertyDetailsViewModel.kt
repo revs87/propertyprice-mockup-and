@@ -7,6 +7,7 @@ import com.rvcoding.propertypricemockup.common.DispatchersProvider
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
 import com.rvcoding.propertypricemockup.domain.navigation.Actions
+import com.rvcoding.propertypricemockup.ui.navigation.core.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.TimeUnit
@@ -27,7 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PropertyDetailsViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
-    private val dispatchersProvider: DispatchersProvider
+    private val dispatchersProvider: DispatchersProvider,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     val isLoading = MutableStateFlow(false)
@@ -81,6 +84,9 @@ class PropertyDetailsViewModel @Inject constructor(
     fun onAction(action: Actions.PropertyDetails) {
         when (action) {
             is Actions.PropertyDetails.Refresh -> propertyId.update { action.id }
+            Actions.PropertyDetails.NavigateBack -> viewModelScope.launch {
+                navigator.navigateUp()
+            }
         }
     }
 }

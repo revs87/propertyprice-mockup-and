@@ -2,26 +2,21 @@ package com.rvcoding.propertypricemockup.ui.screen.yourproperties
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
@@ -40,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,16 +42,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rvcoding.propertypricemockup.R
 import com.rvcoding.propertypricemockup.domain.Property
-import com.rvcoding.propertypricemockup.domain.ratingFormatted
-import com.rvcoding.propertypricemockup.ui.component.TopBar
 import com.rvcoding.propertypricemockup.domain.navigation.Actions
-import com.rvcoding.propertypricemockup.ui.theme.Background
+import com.rvcoding.propertypricemockup.ui.component.PropertyCard
+import com.rvcoding.propertypricemockup.ui.component.TopBar
 import com.rvcoding.propertypricemockup.ui.theme.BackgroundContainer
 import com.rvcoding.propertypricemockup.ui.theme.Primary
 import com.rvcoding.propertypricemockup.ui.theme.Secondary
 import com.rvcoding.propertypricemockup.ui.theme.Tertiary
-import com.rvcoding.propertypricemockup.ui.theme.TextPrimary
-import com.rvcoding.propertypricemockup.ui.theme.TextSecondary
 
 
 /**
@@ -145,55 +136,19 @@ fun PropertiesList(
             )
         ) {
             items(
-                count = properties.size
+                count = properties.size,
+                key = { index -> properties[index].id }
             ) { index ->
-                Card(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .height(176.dp)
-                        .clickable {
-                            onAction.invoke(
-                                Actions.YourProperties.OnPropertyClick(
-                                    properties[index].id
-                                )
+                PropertyCard(
+                    property = properties[index],
+                    onClick = {
+                        onAction(
+                            Actions.YourProperties.OnPropertyClick(
+                                id = properties[index].id
                             )
-                        },
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Background)
-                            .fillMaxSize()
-                            .padding(8.dp)
-                    ) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = properties[index].name,
-                            color = TextPrimary,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold
                         )
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.BottomStart
-                        ) {
-                            Text(
-                                text = "⭐${properties[index].ratingFormatted()}",
-                                color = TextSecondary,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
-                            )
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            Text(properties[index].lowestPricePerNight.toString(), color = TextSecondary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                            Spacer(Modifier.width(4.dp))
-                            Text(properties[index].lowestPricePerNightCurrency, color = TextSecondary, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                        }
                     }
-                }
+                )
             }
         }
         if (canScrollToTop) {

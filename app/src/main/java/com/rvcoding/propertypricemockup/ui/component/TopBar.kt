@@ -2,6 +2,7 @@ package com.rvcoding.propertypricemockup.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -61,22 +63,43 @@ fun TopBar(item: TopBar) {
             }
 
             is TopBar.BackNavigatorWithTitle -> {
-                FilledIconButton(
-                    onClick = { item.onLeftButtonClicked.invoke() },
-                    modifier = Modifier.size(32.dp),
-                    shape = RoundedCornerShape(5.dp),
-                    colors = IconButtonColors(
-                        containerColor = item.leftButtonColor,
-                        contentColor = item.leftButtonColor,
-                        disabledContainerColor = Secondary,
-                        disabledContentColor = Secondary
-                    )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = CenterVertically
                 ) {
-                    Icon(
-                        modifier = Modifier.size(20.dp),
-                        imageVector = item.leftButtonIconRes,
-                        contentDescription = "Navigate back",
-                        tint = item.leftButtonIconTint
+                    FilledIconButton(
+                        onClick = { item.onLeftButtonClicked.invoke() },
+                        modifier = Modifier.padding(end = 16.dp).size(32.dp),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = IconButtonColors(
+                            containerColor = item.leftButtonColor,
+                            contentColor = item.leftButtonColor,
+                            disabledContainerColor = Secondary,
+                            disabledContentColor = Secondary
+                        )
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            imageVector = item.leftButtonIconRes,
+                            contentDescription = "Navigate back",
+                            tint = item.leftButtonIconTint
+                        )
+                    }
+
+                    Text(
+                        text = stringResource(item.titleRes),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Companion.Medium,
+                        color = item.titleTint,
+                        style = TextStyle(
+                            platformStyle = PlatformTextStyle(
+                                includeFontPadding = false
+                            ),
+                            lineHeightStyle = LineHeightStyle(
+                                alignment = LineHeightStyle.Alignment.Companion.Center,
+                                trim = LineHeightStyle.Trim.Companion.Both
+                            )
+                        )
                     )
                 }
             }
@@ -86,10 +109,21 @@ fun TopBar(item: TopBar) {
 
 @Preview(showBackground = true)
 @Composable
-fun TopBarPreview() {
+fun TopBarTitlePreview() {
     TopBar(
         item = TopBar.Title(
             titleRes = R.string.app_name
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TopBarBackNavigatorWithTitlePreview() {
+    TopBar(
+        item = TopBar.BackNavigatorWithTitle(
+            titleRes = R.string.app_name,
+            onLeftButtonClicked = {}
         )
     )
 }

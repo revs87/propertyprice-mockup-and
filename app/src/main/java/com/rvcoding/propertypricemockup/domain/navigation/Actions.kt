@@ -8,5 +8,6 @@ sealed interface Actions {
     }
     sealed interface PropertyDetails : Actions {
         data class Refresh(val id: Long) : PropertyDetails
+        data object NavigateBack : PropertyDetails
     }
 }

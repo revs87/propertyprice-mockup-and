@@ -20,6 +20,11 @@ fun NavigationRoot(
 ) {
     val navigator = vm.navigator()
 
+    /**
+     * Navigation actions captured as flow events.
+     * Generic handler promoting replay persistence from a Channel.
+     * The dispatcher used is Dispatchers.Main.immediate for immediate UI execution.
+     * */
     ObserveAsEvents(
         dispatchersProvider = vm.dispatchersProvider(),
         flow = navigator.navigationActions
@@ -53,8 +58,13 @@ fun NavigationScreen(
         composable<Destination.YourProperties> {
             YourPropertiesScreenRoot()
         }
+        /**
+         * No-arg routes
+         * A serializable object is used instead for light data transfer.
+         * In this case - just a Long argument (id).
+         * */
         composable<Destination.PropertyDetails> {
-            val id = it.toRoute<Destination.PropertyDetails>().id
+            val id: Long = it.toRoute<Destination.PropertyDetails>().id
             PropertyDetailsScreenRoot(id = id)
         }
     }
