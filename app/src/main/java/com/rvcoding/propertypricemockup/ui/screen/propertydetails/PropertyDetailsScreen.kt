@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +33,7 @@ import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.navigation.Actions
 import com.rvcoding.propertypricemockup.ui.component.PropertyCard
 import com.rvcoding.propertypricemockup.ui.component.TopBar
+import com.rvcoding.propertypricemockup.ui.navigation.core.ObserveAsEvents
 import com.rvcoding.propertypricemockup.ui.screen.yourproperties.LoadingState
 import com.rvcoding.propertypricemockup.ui.theme.Background
 import com.rvcoding.propertypricemockup.ui.theme.BackgroundContainer
@@ -46,6 +49,14 @@ fun PropertyDetailsScreenRoot(
     val property by vm.property.collectAsStateWithLifecycle()
     val extraCurrencies by vm.extraCurrencies.collectAsStateWithLifecycle()
     val isLoading by vm.isLoading.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
+    ObserveAsEvents(
+        dispatchersProvider = vm.dispatchersProvider,
+        flow = vm.errors
+    ) { error ->
+        Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+    }
 
     BackHandler {
         vm.onAction(Actions.PropertyDetails.NavigateBack)

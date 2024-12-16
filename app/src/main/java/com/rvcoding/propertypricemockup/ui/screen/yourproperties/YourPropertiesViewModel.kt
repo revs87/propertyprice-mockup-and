@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class YourPropertiesViewModel @Inject constructor(
     private val propertyRepository: PropertyRepository,
-    private val dispatchersProvider: DispatchersProvider,
+    val dispatchersProvider: DispatchersProvider,
     private val navigator: Navigator,
 ) : ViewModel() {
 
@@ -36,6 +37,11 @@ class YourPropertiesViewModel @Inject constructor(
      * Their update method is multi thread safe: isLoading.update { true }
      * */
     val isLoading = MutableStateFlow(false)
+
+    /**
+     * One Time Events to propagate errors to the UI.
+     * */
+    val errors = propertyRepository.errors.receiveAsFlow()
 
     private var hasRefreshed = false
     val properties: StateFlow<List<Property>> = propertyRepository.listing()

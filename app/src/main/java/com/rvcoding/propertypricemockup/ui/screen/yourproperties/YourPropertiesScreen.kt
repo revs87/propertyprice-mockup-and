@@ -1,5 +1,6 @@
 package com.rvcoding.propertypricemockup.ui.screen.yourproperties
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +47,7 @@ import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.navigation.Actions
 import com.rvcoding.propertypricemockup.ui.component.PropertyCard
 import com.rvcoding.propertypricemockup.ui.component.TopBar
+import com.rvcoding.propertypricemockup.ui.navigation.core.ObserveAsEvents
 import com.rvcoding.propertypricemockup.ui.theme.BackgroundContainer
 import com.rvcoding.propertypricemockup.ui.theme.Primary
 import com.rvcoding.propertypricemockup.ui.theme.Secondary
@@ -63,6 +66,14 @@ fun YourPropertiesScreenRoot(
     val properties by vm.properties.collectAsStateWithLifecycle()
     val isLoading by vm.isLoading.collectAsStateWithLifecycle()
     val canScrollToTop by vm.canScrollToTop.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
+    ObserveAsEvents(
+        dispatchersProvider = vm.dispatchersProvider,
+        flow = vm.errors
+    ) { error ->
+        Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+    }
 
     YourPropertiesScreen(
         properties = properties,
