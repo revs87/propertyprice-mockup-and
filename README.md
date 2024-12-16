@@ -38,6 +38,7 @@ that emboss my good practices, clean code principles and Android applied knowled
 - Single Source of Truth in a Room database
 - Reactive Navigation (Flow listeners for navigation events)
 - Reactive Error Handling: One Time Events from Data to Presentation
+- Reactive stream of emission from Rates to keep prices in sync with currency rates
 
 
 ### 📲 UI
