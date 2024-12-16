@@ -58,13 +58,13 @@ that emboss my good practices, clean code principles and Android applied knowled
 
 ### 📸 Screenshots
 
-| Splash               | Property List Refresh      | Property List GoToTop |
-|----------------------|---------------------|-----------------------|
+| Splash                                                                                            | Property List Refresh                                                                             | Property List GoToTop                                                                             |
+|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | ![propertyintro](https://github.com/user-attachments/assets/d5808a4f-6f87-4592-ac89-23d5110402f5) | ![propertylist2](https://github.com/user-attachments/assets/8774e42e-e38d-4337-a3bb-b75081a41177) | ![propertylist3](https://github.com/user-attachments/assets/7acf92a0-2035-467d-bd16-3ce4c81ee875) |
 
-| Property Details   | Property Details Rates | Property Details NO_INTERNET |
-|--------------------|------------------------|------------------------------|
-| ![propertydetails](https://github.com/user-attachments/assets/046bd3af-cd1b-4fec-bb05-086a9efb404e) |  ![propertydetails2](https://github.com/user-attachments/assets/e458dac8-6d4f-435d-bf09-d33bcf2619ef)  |   ![propertydetails3](https://github.com/user-attachments/assets/7d6d918e-27ae-40c2-bc46-bbb1778f8cb3) |
+| Property Details                                                                                    | Property Details Rates                                                                               | Property Details NO_INTERNET                                                                         |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| ![propertydetails](https://github.com/user-attachments/assets/046bd3af-cd1b-4fec-bb05-086a9efb404e) | ![propertydetails2](https://github.com/user-attachments/assets/e458dac8-6d4f-435d-bf09-d33bcf2619ef) | ![propertydetails3](https://github.com/user-attachments/assets/7d6d918e-27ae-40c2-bc46-bbb1778f8cb3) |
 
 
 ### ☑ Project Requirements
