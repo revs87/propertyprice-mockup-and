@@ -23,16 +23,15 @@ class StatsInterceptor @Inject constructor(
         val endTime = System.nanoTime()
 
         coScope.launch(dispatchersProvider.io) {
-            val duration = TimeUnit.NANOSECONDS.toMillis(endTime - startTime)
             val endpoint = request.url.toString()
+            val duration = TimeUnit.NANOSECONDS.toMillis(endTime - startTime)
+            val action = if (endpoint.contains("properties.json")) "load-properties" else "load-rates"
 
-            val url = URL(endpoint)
+            val url = URL("https://gist.githubusercontent.com/PedroTrabulo-Hostelworld/6bed011203c6c8217f0d55f74ddcc5c5/raw/ce8f55cfd963aeef70f2ac9f88f34cefd19fca30/stats?action=$action&duration=$duration")
             val connection = url.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
-            connection.setRequestProperty("action", if (endpoint.contains("properties.json")) "load-properties" else "load-rates")
-            connection.setRequestProperty("duration", duration.toString())
             val responseCode = connection.responseCode
-            println("Stats: code=$responseCode endpoint=${endpoint.substringAfterLast("/")} duration=$duration")
+            println("Stats: code=$responseCode duration=${duration}ms action=$action endpoint=${endpoint.substringAfterLast("/")} ")
             connection.disconnect()
         }
 
