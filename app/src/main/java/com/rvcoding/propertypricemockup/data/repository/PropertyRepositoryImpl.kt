@@ -31,7 +31,10 @@ internal class PropertyRepositoryImpl @Inject constructor(
                         propertyDao.insertProperty(property.toDomain(response.data.location()))
                     }.also { result ->
                         when (result) {
-                            is Error -> errors.send(result.error)
+                            is Error -> {
+                                errors.send(result.error)
+                                return@refresh
+                            }
                             is Success -> {}
                         }
                     }
@@ -49,7 +52,10 @@ internal class PropertyRepositoryImpl @Inject constructor(
                         propertyDao.insertProperty(property.toDomain(response.data.location()))
                     }.also { result ->
                         when (result) {
-                            is Error -> errors.send(result.error)
+                            is Error -> {
+                                errors.send(result.error)
+                                return@refreshDetails property.toDomain(response.data.location())
+                            }
                             is Success -> {}
                         }
                     }
