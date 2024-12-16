@@ -56,8 +56,15 @@ that emboss my good practices, clean code principles and Android applied knowled
 - Room DB (on KSP)
 
 
-### 📸 Screen Recording
+### 📸 Screenshots
 
+| Splash               | Property List       | Property List Refresh |
+|----------------------|---------------------|-----------------------|
+| ![1_intro](https://) | ![2_list](https://) | ![3_edit](https://)   |
+
+| Property Details   | Property Details Rates | Property Details NO_INTERNET |
+|--------------------|------------------------|------------------------------|
+| ![4_new](https://) | ![5_time](https://)    | ![6_trigger](https://)       |
 
 
 ### ☑ Project Requirements
