@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rvcoding.propertypricemockup.common.DispatchersProvider
+import com.rvcoding.propertypricemockup.core.DispatchersProvider
 import com.rvcoding.propertypricemockup.domain.Property
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
 import com.rvcoding.propertypricemockup.domain.navigation.Actions

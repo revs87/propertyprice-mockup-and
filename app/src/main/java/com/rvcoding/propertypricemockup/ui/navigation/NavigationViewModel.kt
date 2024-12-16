@@ -1,7 +1,7 @@
 package com.rvcoding.propertypricemockup.ui.navigation
 
 import androidx.lifecycle.ViewModel
-import com.rvcoding.propertypricemockup.common.DispatchersProvider
+import com.rvcoding.propertypricemockup.core.DispatchersProvider
 import com.rvcoding.propertypricemockup.domain.navigation.Destination
 import com.rvcoding.propertypricemockup.ui.navigation.core.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel

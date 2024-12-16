@@ -21,8 +21,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "com.rvcoding.propertypricemockup.HiltTestRunner"
-    }
 
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -100,6 +100,8 @@ dependencies {
     testImplementation(libs.junit5.params)
     testImplementation(libs.assertk)
     testImplementation(libs.turbine)
+    kspTest(libs.room.compiler)
+    testImplementation(libs.androidx.room.testing)
 
     // Instrumented testing
     kspAndroidTest(libs.hilt.android.compiler)
@@ -109,12 +111,10 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.ui.test.android)
+    kspAndroidTest(libs.room.compiler)
+    androidTestImplementation(libs.androidx.room.testing)
 
 }
-
 room {
     schemaDirectory("$projectDir/schemas")
-}
-junitPlatform {
-    instrumentationTests.includeExtensions.set(true)
 }

@@ -1,14 +1,14 @@
 package com.rvcoding.propertypricemockup.di
 
 import android.app.Application
-import com.rvcoding.propertypricemockup.common.DispatchersProvider
-import com.rvcoding.propertypricemockup.common.StandardDispatchersProvider
+import com.rvcoding.propertypricemockup.core.DispatchersProvider
+import com.rvcoding.propertypricemockup.core.StandardDispatchersProvider
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
 import com.rvcoding.propertypricemockup.data.db.PropertyDatabase
 import com.rvcoding.propertypricemockup.data.remote.api.PropertyService
 import com.rvcoding.propertypricemockup.data.remote.api.StatsInterceptor
 import com.rvcoding.propertypricemockup.data.repository.PropertyRepositoryImpl
-import com.rvcoding.propertypricemockup.domain.data.remote.api.PropertyApi
+import com.rvcoding.propertypricemockup.domain.data.remote.api.PropertyDataSource
 import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepository
 import dagger.Module
 import dagger.Provides
@@ -61,7 +61,19 @@ object AppModule {
      * */
     @Provides
     @Singleton
-    fun providesPropertyApi(): PropertyApi = PropertyService(provideStatsInterceptor())
+    fun providesPropertyDataSource(
+        provideStatsInterceptor: StatsInterceptor
+    ): PropertyDataSource = PropertyService(provideStatsInterceptor)
+
+    /**
+     * The Bonus Tracker for network calls
+     * */
+    @Provides
+    @Singleton
+    fun provideStatsInterceptor(
+        provideDispatchers: DispatchersProvider,
+        provideCoroutineScope: CoroutineScope
+    ): StatsInterceptor = StatsInterceptor(provideDispatchers, provideCoroutineScope)
 
     /**
      * Repository to handle db and network data
@@ -70,10 +82,7 @@ object AppModule {
     @Singleton
     fun providePropertiesRepository(
         propertyDao: PropertyDao,
-        propertyApi: PropertyApi
-    ): PropertyRepository = PropertyRepositoryImpl(propertyDao, propertyApi)
+        propertyDataSource: PropertyDataSource
+    ): PropertyRepository = PropertyRepositoryImpl(propertyDao, propertyDataSource)
 
-    @Provides
-    @Singleton
-    fun provideStatsInterceptor(): StatsInterceptor = StatsInterceptor(provideDispatchers(), provideCoroutineScope(provideDispatchers(), provideCoroutineExceptionHandler()))
 }

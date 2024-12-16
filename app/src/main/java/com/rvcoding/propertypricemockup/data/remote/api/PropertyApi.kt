@@ -1,4 +1,4 @@
-package com.rvcoding.propertypricemockup.domain.data.remote.api
+package com.rvcoding.propertypricemockup.data.remote.api
 
 import com.rvcoding.propertypricemockup.data.remote.PropertiesResponse
 import com.rvcoding.propertypricemockup.data.remote.RatesResponse

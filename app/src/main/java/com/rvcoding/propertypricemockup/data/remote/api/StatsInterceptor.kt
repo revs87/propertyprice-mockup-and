@@ -1,6 +1,6 @@
 package com.rvcoding.propertypricemockup.data.remote.api
 
-import com.rvcoding.propertypricemockup.common.DispatchersProvider
+import com.rvcoding.propertypricemockup.core.DispatchersProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.Interceptor

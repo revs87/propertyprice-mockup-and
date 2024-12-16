@@ -1,4 +1,4 @@
-package com.rvcoding.propertypricemockup.common
+package com.rvcoding.propertypricemockup.core
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
