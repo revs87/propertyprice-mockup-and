@@ -43,5 +43,5 @@ data class Property(
 fun Property.ratingFormatted(): String {
     val df = DecimalFormat("0.0")
     df.roundingMode = RoundingMode.HALF_UP
-    return df.format(this.rating.coerceAtLeast(0.0) / 10)
+    return df.format(this.rating.coerceAtLeast(0.0).coerceAtMost(100.0) / 10)
 }
