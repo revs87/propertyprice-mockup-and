@@ -20,4 +20,18 @@ data class PropertyEntity(
     val rating: Double,
     val lowestPricePerNight: Double,
     val lowestPricePerNightCurrency: String,
-)
+) {
+    companion object {
+        val STUB = PropertyEntity(
+            id = 0,
+            name = "",
+            location = "",
+            overview = "",
+            imgUrl = "",
+            isFeatured = false,
+            rating = 0.0,
+            lowestPricePerNight = 0.0,
+            lowestPricePerNightCurrency = ""
+        )
+    }
+}

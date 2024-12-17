@@ -3,7 +3,7 @@ package com.rvcoding.propertypricemockup.data.repository
 import com.rvcoding.propertypricemockup.core.domain.util.DataError
 import com.rvcoding.propertypricemockup.core.domain.util.Result.Error
 import com.rvcoding.propertypricemockup.core.domain.util.Result.Success
-import com.rvcoding.propertypricemockup.core.domain.util.dbCall
+import com.rvcoding.propertypricemockup.core.domain.util.dbResult
 import com.rvcoding.propertypricemockup.data.db.PropertyDao
 import com.rvcoding.propertypricemockup.data.db.PropertyEntity
 import com.rvcoding.propertypricemockup.data.remote.ApiProperty
@@ -32,7 +32,7 @@ internal class PropertyRepositoryImpl @Inject constructor(
             is Error -> errors.send(response.error)
             is Success -> {
                 response.data.properties.forEach { property ->
-                    dbCall {
+                    dbResult {
                         propertyDao.insertProperty(property.toEntity(response.data.location()))
                     }.also { result ->
                         when (result) {
@@ -53,7 +53,7 @@ internal class PropertyRepositoryImpl @Inject constructor(
             is Error -> errors.send(response.error)
             is Success -> {
                 response.data.properties.find { it.id == id }?.let { property ->
-                    dbCall {
+                    dbResult {
                         propertyDao.insertProperty(property.toEntity(response.data.location()))
                     }.also { result ->
                         when (result) {

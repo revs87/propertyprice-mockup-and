@@ -22,10 +22,10 @@ class PropertyKtTest {
             100, 10.0
             200, 10.0"""
     )
-    fun ratingFormatted(initial: String, converted: String) {
-        val property = Property.INITIAL.copy(rating = initial.toDouble())
+    fun ratingFormatted(initial: String, expected: String) {
+        val actual = Property.INITIAL.copy(rating = initial.toDouble())
 
-        assertThat(property.ratingFormatted()).isEqualTo(converted)
+        assertThat(actual.ratingFormatted()).isEqualTo(expected)
     }
 
 }

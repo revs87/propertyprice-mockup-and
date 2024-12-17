@@ -7,7 +7,7 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 
 
-inline fun <T> networkCall(
+inline fun <T> networkResult(
     block: () -> T
 ): Result<T, DataError.Network> =
     try {
@@ -20,7 +20,7 @@ inline fun <T> networkCall(
         Error(DataError.Network.UNKNOWN)
     }
 
-inline fun <T> dbCall(
+inline fun <T> dbResult(
     block: () -> T
 ): Result<T, DataError.Local> =
     try {

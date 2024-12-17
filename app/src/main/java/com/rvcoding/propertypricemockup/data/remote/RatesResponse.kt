@@ -9,12 +9,24 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RatesResponse(
     val success: Boolean,
-    val timestamp: Long,
-    val historical: Boolean,
+    val timestamp: Long? = null,
+    val historical: Boolean? = null,
     val base: String,
-    val date: String,
+    val date: String? = null,
     val rates: LiveRates,
-)
+) {
+    companion object {
+        val STUB = RatesResponse(
+            success = true,
+            base = "EUR",
+            rates = LiveRates(
+                EUR = 1.0,
+                GBP = 0.9,
+                USD = 1.1
+            )
+        )
+    }
+}
 
 @Serializable
 data class LiveRates(

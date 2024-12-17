@@ -9,12 +9,27 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PropertiesResponse(
     val properties: List<ApiProperty>,
-    val location: Location,
+    val location: Location? = null,
     val locationEn: LocationEn,
-    val filterData: FilterData,
-    val sortOrder: String?,
-    val pagination: Pagination,
-)
+    val filterData: FilterData? = null,
+    val sortOrder: String? = null,
+    val pagination: Pagination? = null,
+) {
+    companion object {
+        val STUB = PropertiesResponse(
+            properties = emptyList(),
+            locationEn = LocationEn(
+                city = City2(
+                    id = 0,
+                    name = "Name",
+                    idCountry = 0,
+                    country = "Country"
+                ),
+                region = null
+            )
+        )
+    }
+}
 
 @Serializable
 data class ApiProperty(
