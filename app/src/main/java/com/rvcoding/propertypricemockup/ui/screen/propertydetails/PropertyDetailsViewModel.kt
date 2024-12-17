@@ -1,7 +1,6 @@
 package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
 import android.annotation.SuppressLint
-import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
@@ -21,10 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -87,7 +83,7 @@ class PropertyDetailsViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = mapOf()
         )
-    
+
     /**
      * This persists the scroll position when faced to configuration changes and Rates refresh.
      * */
