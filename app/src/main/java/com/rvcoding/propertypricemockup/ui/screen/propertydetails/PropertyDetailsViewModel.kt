@@ -44,7 +44,7 @@ class PropertyDetailsViewModel @Inject constructor(
     ) { _, propertyId ->
         isRatesLoading.update { true }
         val details = propertyRepository.refreshDetails(propertyId)
-        isRatesLoading.update { false }
+        if (details != null) { isRatesLoading.update { false } }
         details
     }
         .filterNotNull()
