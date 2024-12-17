@@ -11,8 +11,6 @@ import com.rvcoding.propertypricemockup.domain.data.repository.PropertyRepositor
 import com.rvcoding.propertypricemockup.domain.navigation.Actions
 import com.rvcoding.propertypricemockup.ui.navigation.core.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,8 +24,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
-import kotlinx.coroutines.runBlocking
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,15 +36,15 @@ class PropertyDetailsViewModel @Inject constructor(
     private val propertyId = MutableStateFlow(-1L)
     fun setPropertyId(id: Long) = propertyId.update { id }
 
-    val isLoading = MutableStateFlow(false)
+    val isRatesLoading = MutableStateFlow(false)
     val errors = propertyRepository.errors.receiveAsFlow()
     val property: StateFlow<Property> = combine(
         tickFor5Seconds(),
         snapshotFlow { propertyId.value }
     ) { _, propertyId ->
-        isLoading.update { true }
+        isRatesLoading.update { true }
         val details = propertyRepository.refreshDetails(propertyId)
-        isLoading.update { false }
+        isRatesLoading.update { false }
         details
     }
         .filterNotNull()

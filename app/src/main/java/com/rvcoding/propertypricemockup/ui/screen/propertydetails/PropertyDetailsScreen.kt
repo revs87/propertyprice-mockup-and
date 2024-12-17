@@ -48,7 +48,7 @@ fun PropertyDetailsScreenRoot(
     LaunchedEffect(id) { vm.setPropertyId(id) }
     val property by vm.property.collectAsStateWithLifecycle()
     val extraCurrencies by vm.extraCurrencies.collectAsStateWithLifecycle()
-    val isLoading by vm.isLoading.collectAsStateWithLifecycle()
+    val isRatesLoading by vm.isRatesLoading.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     ObserveAsEvents(
@@ -64,7 +64,7 @@ fun PropertyDetailsScreenRoot(
 
     PropertyDetailsScreen(
         property = property,
-        isLoading = isLoading,
+        isRatesLoading = isRatesLoading,
         extraCurrencies = extraCurrencies,
         scrollState = vm.scrollState,
         onAction = vm::onAction
@@ -74,7 +74,7 @@ fun PropertyDetailsScreenRoot(
 @Composable
 fun PropertyDetailsScreen(
     property: Property,
-    isLoading: Boolean,
+    isRatesLoading: Boolean,
     extraCurrencies: Map<String, String>,
     scrollState: ScrollState,
     onAction: (Actions.PropertyDetails) -> Unit
@@ -99,7 +99,7 @@ fun PropertyDetailsScreen(
                         onLeftButtonClicked = { onAction.invoke(Actions.PropertyDetails.NavigateBack) }
                     )
                 )
-                if (isLoading || property.isInvalid()) {
+                if (property.isInvalid()) {
                     Box(modifier = Modifier.weight(1f)) {
                         LoadingState()
                     }
@@ -128,15 +128,19 @@ fun PropertyDetailsScreen(
                         color = Secondary,
                         fontSize = 14.sp
                     )
-                    extraCurrencies.keys.forEach { currency ->
-                        Text(
-                            text = "$currency: ${extraCurrencies[currency]}",
-                            color = Secondary,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                    if (isRatesLoading) {
+                        LoadingState()
+                    } else {
+                        extraCurrencies.keys.forEach { currency ->
+                            Text(
+                                text = "$currency: ${extraCurrencies[currency]}",
+                                color = Secondary,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
@@ -149,7 +153,7 @@ fun PropertyDetailsScreen(
 fun PropertyDetailsScreenPreview() {
     PropertyDetailsScreen(
         property = Property.INITIAL,
-        isLoading = false,
+        isRatesLoading = false,
         extraCurrencies = mapOf("GBP" to "1.2"),
         scrollState = ScrollState(0),
         onAction = {}
