@@ -80,27 +80,28 @@ fun PropertyDetailsScreen(
     Box(
         modifier = Modifier.fillMaxSize().background(Background)
     ) {
-        if (isLoading) {
-            LoadingState()
-        } else {
-            Box(
-                modifier = Modifier.fillMaxSize().background(BackgroundContainer),
-                contentAlignment = Alignment.TopStart
-            ) {
-                val scrollState = rememberScrollState()
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(scrollState),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    TopBar(
-                        item = TopBar.BackNavigatorWithTitle(
-                            titleRes = R.string.your_property_details_title,
-                            onLeftButtonClicked = { onAction.invoke(Actions.PropertyDetails.NavigateBack) }
-                        )
+        Box(
+            modifier = Modifier.fillMaxSize().background(BackgroundContainer),
+            contentAlignment = Alignment.TopStart
+        ) {
+            val scrollState = rememberScrollState()
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                TopBar(
+                    item = TopBar.BackNavigatorWithTitle(
+                        titleRes = R.string.your_property_details_title,
+                        onLeftButtonClicked = { onAction.invoke(Actions.PropertyDetails.NavigateBack) }
                     )
+                )
+                if (isLoading || property.isInvalid()) {
+                    LoadingState()
+                } else {
                     AsyncImage(
                         model = property.imgUrl,
                         contentDescription = property.name,

@@ -33,7 +33,19 @@ data class Property(
     val lowestPricePerNight: Double,
     val lowestPricePerNightCurrency: String,
 ) {
+
+    fun isInvalid() = this.id < 0L
+
     companion object {
+        /**
+         * Choosing a INITIAL value instead of null - The intent is to avoid introducing nullability.
+         * Releases the need to handle potential null values in UI or business logic, increasing complexity and the risk of errors.
+         *
+         * Nevertheless, this is still an invalid state which we should not consider.
+         * The id as -1 will serve as the identifier for an invalid state.
+         *
+         * Also used for composable previews.
+         * */
         val INITIAL = Property(
             id = -1,
             name = "Initial",
