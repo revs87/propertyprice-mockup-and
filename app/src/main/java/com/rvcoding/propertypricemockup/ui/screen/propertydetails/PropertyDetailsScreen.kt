@@ -2,6 +2,7 @@ package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -66,6 +66,7 @@ fun PropertyDetailsScreenRoot(
         property = property,
         isLoading = isLoading,
         extraCurrencies = extraCurrencies,
+        scrollState = vm.scrollState,
         onAction = vm::onAction
     )
 }
@@ -75,6 +76,7 @@ fun PropertyDetailsScreen(
     property: Property,
     isLoading: Boolean,
     extraCurrencies: Map<String, String>,
+    scrollState: ScrollState,
     onAction: (Actions.PropertyDetails) -> Unit
 ) {
     Box(
@@ -85,8 +87,6 @@ fun PropertyDetailsScreen(
             modifier = Modifier.fillMaxSize().background(BackgroundContainer),
             contentAlignment = Alignment.TopStart
         ) {
-            val scrollState = rememberScrollState()
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -151,6 +151,7 @@ fun PropertyDetailsScreenPreview() {
         property = Property.INITIAL,
         isLoading = false,
         extraCurrencies = mapOf("GBP" to "1.2"),
+        scrollState = ScrollState(0),
         onAction = {}
     )
 }

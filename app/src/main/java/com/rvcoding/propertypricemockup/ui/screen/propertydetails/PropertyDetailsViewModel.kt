@@ -2,6 +2,7 @@ package com.rvcoding.propertypricemockup.ui.screen.propertydetails
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -86,6 +87,11 @@ class PropertyDetailsViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000L),
             initialValue = mapOf()
         )
+    
+    /**
+     * This persists the scroll position when faced to configuration changes and Rates refresh.
+     * */
+    val scrollState = ScrollState(0)
 
     /**
      * RXJava3 POC
