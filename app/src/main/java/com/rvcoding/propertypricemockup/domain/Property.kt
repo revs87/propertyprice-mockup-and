@@ -11,6 +11,15 @@ import java.text.DecimalFormat
  * Property serves as the model for all layers of the app: Domain, Data and UI.
  * Not ideal if we want to digest the data from raw data into a more UI friendly model,
  * but this approach's gain is a reasonable trade-off for a mockup app.
+ *
+ * In Clean Architecture there would be a model in each layer (i.e. Domain, Data, UI and possibly UseCases),
+ * but in this case I'm using just one model for all layers.
+ *
+ * I'm not saying any of the 2 scenarios is how it should fundamentally be,
+ * but as per:
+ * - the lack of requirements or guidelines during development and
+ * - the actual model information does not mutate much from layer to layer
+ * then this is perfectly acceptable.
  * */
 @Entity(tableName = "properties")
 data class Property(
