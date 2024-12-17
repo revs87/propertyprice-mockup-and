@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.rvcoding.propertypricemockup.domain.Property
 
 @Database(
-    entities = [Property::class],
+    entities = [PropertyEntity::class],
     version = 1,
     exportSchema = false
 )

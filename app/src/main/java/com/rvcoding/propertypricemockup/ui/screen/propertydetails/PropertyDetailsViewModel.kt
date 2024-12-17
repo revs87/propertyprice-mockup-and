@@ -77,8 +77,8 @@ class PropertyDetailsViewModel @Inject constructor(
             rates.also(::println)
             mapOf(
                 "EUR" to String.format("%.2f", price),
-                "USD" to String.format("%.2f", price.times(rates.rates.USD)),
-                "GBP" to String.format("%.2f", price.times(rates.rates.GBP))
+                "USD" to String.format("%.2f", price.times(rates.rates.usd)),
+                "GBP" to String.format("%.2f", price.times(rates.rates.gbp))
             )
         }
         .stateIn(

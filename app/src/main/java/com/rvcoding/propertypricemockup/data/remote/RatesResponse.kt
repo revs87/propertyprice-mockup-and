@@ -14,18 +14,7 @@ data class RatesResponse(
     val base: String,
     val date: String,
     val rates: LiveRates,
-) {
-    companion object {
-        val FAILURE = RatesResponse(
-            success = false,
-            timestamp = 0,
-            historical = false,
-            base = "",
-            date = "",
-            rates = LiveRates()
-        )
-    }
-}
+)
 
 @Serializable
 data class LiveRates(

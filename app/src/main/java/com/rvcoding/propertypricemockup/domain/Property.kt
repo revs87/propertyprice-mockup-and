@@ -8,22 +8,22 @@ import java.text.DecimalFormat
 
 
 /**
- * Property serves as the model for all layers of the app: Domain, Data and UI.
- * Not ideal if we want to digest the data from raw data into a more UI friendly model,
- * but this approach's gain is a reasonable trade-off for a mockup app.
+ * Property serves as the model for the following layers of the app: Domain and UI.
+ * PropertyEntity serves as the model for the layers of the app: Data.
  *
- * In Clean Architecture there would be a model in each layer (i.e. Domain, Data, UI and possibly UseCases),
- * but in this case I'm using just one model for all layers.
+ * Not ideal if we want to digest the data from domain into a more UI friendly model,
+ * but this Non-full Clean Architecture approach's gain is a reasonable trade-off for a mockup app.
+ *
+ * In Clean Architecture there would be a model in each layer (i.e. Domain, Data, UI and possibly UseCases).
  *
  * I'm not saying any of the 2 scenarios is how it should fundamentally be,
  * but as per:
  * - the lack of requirements or guidelines during development and
- * - the actual model information does not mutate much from layer to layer
+ * - the actual model information does not mutate much from domain layer to UI layer
  * then this is perfectly acceptable.
  * */
-@Entity(tableName = "properties")
 data class Property(
-    @PrimaryKey(autoGenerate = false) val id: Long,
+    val id: Long,
     val name: String,
     val location: String,
     val overview: String,

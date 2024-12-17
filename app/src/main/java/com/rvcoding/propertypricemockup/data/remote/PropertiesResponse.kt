@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * */
 @Serializable
 data class PropertiesResponse(
-    val properties: List<Property>,
+    val properties: List<ApiProperty>,
     val location: Location,
     val locationEn: LocationEn,
     val filterData: FilterData,
@@ -17,7 +17,7 @@ data class PropertiesResponse(
 )
 
 @Serializable
-data class Property(
+data class ApiProperty(
     val id: Long,
     val isPromoted: Boolean,
     val hbid: Long,
