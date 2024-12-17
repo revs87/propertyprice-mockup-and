@@ -100,7 +100,9 @@ fun PropertyDetailsScreen(
                     )
                 )
                 if (isLoading || property.isInvalid()) {
-                    LoadingState()
+                    Box(modifier = Modifier.weight(1f)) {
+                        LoadingState()
+                    }
                 } else {
                     AsyncImage(
                         model = property.imgUrl,
